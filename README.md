@@ -1,8 +1,8 @@
 # 🛒 E-Commerce Functionality App
 
 This project is a **Multi-Page E-Commerce Functionality Application** built using **React** and **Bootstrap**.  
-Users can **add, view, update, and delete products**, just like on platforms such as **Amazon or Flipkart**.  
-All products are stored in a mock API, and the **discounted price is calculated automatically**.
+Users can **add, view, update, delete, search, and sort products**, just like on platforms such as **Amazon or Flipkart**.  
+All products are stored in a mock API, the **discounted price is calculated automatically**, and users can **search or sort products by name, price, or discount**.
 
 ---
 
@@ -13,6 +13,10 @@ All products are stored in a mock API, and the **discounted price is calculated 
 - Automatically shows **discounted price**
 - Update or delete any product directly from the card
 - View detailed product page with full description
+- **Search products by name** from the product list
+- **Sort products** by:
+  - Price (Low → High / High → Low)
+  - Discount (Low → High / High → Low)
 
 ---
 
@@ -38,10 +42,10 @@ All products are stored in a mock API, and the **discounted price is calculated 
 
 ## 📸 Project Preview
 ### 🏠 Home Page
-<img src="./home.png" alt="Home Page" width="600"/>
+<img src="./home.png" alt="Home Page" />
 
 ### ➕ Add Product Page
-<img src="./addproduct.png" alt="Add Product Page" width="600"/>
+<img src="./addproduct.png" alt="Add Product Page" />
 
 ### 🔍 View Product Page
-<img src="./view.png" alt="View Product Page" width="600"/>
+<img src="./view.png" alt="View Product Page" />

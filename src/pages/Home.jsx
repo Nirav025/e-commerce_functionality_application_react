@@ -2,10 +2,21 @@ import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
 import { FaEye, FaTrash, FaPencilAlt } from "react-icons/fa";
+import { toast } from "react-toastify";
+
 
 
 const Home = () => {
+
   const [products, setProducts] = useState([]);
+
+
+
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const [sortOrder, setSortOrder] = useState("");
+
+
 
   const ShowApi = async () => {
     await axios
@@ -18,19 +29,35 @@ const Home = () => {
     ShowApi();
   }, []);
 
-  
+
 
   async function trash(id) {
     if (confirm("Do you want to delete this product?")) {
       await axios
         .delete(`https://68be8fd39c70953d96ecb6a2.mockapi.io/user/${id}`)
         .then(() => {
-          alert("Product Deleted ❌");
+          toast.error("Product Deleted ❌");
           ShowApi();
         })
         .catch((err) => console.log(err));
     }
   }
+
+
+
+  // ---- filter ane sort mate logic ----
+  const filteredProducts = products.filter((p) =>
+    p.productName.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const sortedProducts = [...filteredProducts].sort((a, b) => {
+    if (sortOrder === "lowToHigh") return a.price - b.price;
+    if (sortOrder === "highToLow") return b.price - a.price;
+    return 0;
+  });
+
+
+
 
   return (
     <>
@@ -44,15 +71,42 @@ const Home = () => {
       </div>
 
       <div className="container mt-5">
+
+
+        <div className="filter-bar d-flex justify-content-between align-items-center mb-5 flex-wrap gap-3">
+          <input
+            type="text"
+            className="form-control search-input"
+            placeholder="🔍 Search products..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+
+          <select
+            className="form-select sort-select"
+            value={sortOrder}
+            onChange={(e) => setSortOrder(e.target.value)}
+          >
+            <option value="">Sort by Price</option>
+            <option value="lowToHigh">Low to High</option>
+            <option value="highToLow">High to Low</option>
+          </select>
+        </div>
+
         <div className="row g-4">
-          {products &&
-            products.map((item, index) => {
+
+          
+          {sortedProducts.length > 0 ? (
+            sortedProducts.map((item, index) => {
               const discountedPrice = (
                 item.price -
                 (item.price * item.discount) / 100
               ).toFixed(0);
 
+
+
               return (
+                
                 <div className="col-md-4 mb-4" key={index}>
                   <div className="card shadow-sm h-100 border">
                     <img
@@ -65,9 +119,9 @@ const Home = () => {
                       <h5 className="card-title">{item.productName}</h5>
 
                       <div className="mb-2">
-                        M.R.P :{" "} 
+                        M.R.P :{" "}
                         <span className="text-muted text-decoration-line-through me-2">
-                           ₹ {item.price}
+                          ₹ {item.price}
                         </span>
                         <span className="fw-bold text-success">
                           ₹ {discountedPrice}
@@ -106,9 +160,16 @@ const Home = () => {
                   </div>
                 </div>
               );
-            })}
+            })
+          ) : (
+            <p className="text-center mt-5">No products found</p>
+          )}
+
+
+
         </div>
       </div>
+
     </>
   );
 };

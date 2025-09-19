@@ -303,3 +303,41 @@
   background-color: #000;
   border: none;
 }
+
+
+
+/* css for searching and sorting */
+
+.filter-bar {
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 50px;
+  padding: 12px 25px;
+}
+
+.search-input {
+  flex: 1;
+  min-width: 250px;
+  border-radius: 50px;
+  padding: 10px 20px;
+  border: 1px solid #ced4da;
+  transition: all 0.3s ease;
+}
+
+.search-input:focus {
+  border-color: #000;
+  box-shadow: 0 0 0 0.15rem rgba(0, 0, 0, 0.2);
+}
+
+.sort-select {
+  width: 200px;
+  border-radius: 50px;
+  padding: 10px 15px;
+  border: 1px solid #ced4da;
+  transition: all 0.3s ease;
+}
+
+.sort-select:focus {
+  border-color: #000;
+  box-shadow: 0 0 0 0.15rem rgba(0, 0, 0, 0.2);
+}

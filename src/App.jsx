@@ -3,6 +3,8 @@ import Navbar from "./layout/Navbar"
 import Home from "./pages/Home"
 import AddStd from "./pages/AddStd"
 import View from "./pages/View"
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 
 function App() {
@@ -26,6 +28,9 @@ function App() {
 
 
      </Routers>
+
+
+     <ToastContainer position="top-right" autoClose={3000} />
 
     </>
   )

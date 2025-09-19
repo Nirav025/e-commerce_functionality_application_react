@@ -2,18 +2,24 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
+import { toast } from "react-toastify"; 
 
 
 const AddStd = () => {
+
   const { register, handleSubmit, reset } = useForm();
+
   const redirect = useNavigate();
+
   const { id } = useParams();
 
   async function singleStd() {
+
     await axios
       .get(`https://68be8fd39c70953d96ecb6a2.mockapi.io/user/${id}`)
       .then((res) => reset(res.data))
       .catch((err) => console.log(err));
+
   }
 
   useEffect(() => {
@@ -22,12 +28,15 @@ const AddStd = () => {
     }
   }, [id]);
 
+
+
   async function addData(data) {
+
     if (id == null) {
       await axios
         .post("https://68be8fd39c70953d96ecb6a2.mockapi.io/user", data)
         .then(() => {
-          alert("Product Added ✅");
+          toast.success("Product Added ✅");  
           reset();
         })
         .catch((err) => console.log(err));
@@ -38,21 +47,27 @@ const AddStd = () => {
           data
         )
         .then(() => {
-          alert("Product Updated ✏️");
+          toast.info("Product Updated ✏️");  
         })
         .catch((err) => console.log(err));
     }
     redirect("/");
   }
 
+
   return (
+
+    
     <div className="container d-flex justify-content-center align-items-start mt-5 mb-5">
+
+
       <div className="addstd-card p-4 w-50 shadow-sm">
         <h3 className="text-center mb-4">
           {id ? "Update Product" : "Add Product"}
         </h3>
 
         <form method="post" onSubmit={handleSubmit(addData)} >
+          
           <div className="mb-3">
             <label className="form-label">Product Name</label>
             <input
@@ -120,6 +135,8 @@ const AddStd = () => {
         </form>
       </div>
     </div>
+
+
   );
 };
 
